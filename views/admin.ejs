@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+  <title>Admin Page</title>
+</head>
+<body>
+<!-- navigation -->
+<% if (typeof(message) !== 'undefined' && message) { %>
+  <input type="text" id="message" value='<%= JSON.stringify(message) %>' hidden>
+  
+<% } %>
+<input type="text" id="type" value='admin' hidden>
+
+  <header>
+    <nav>
+      <div class="nav_brand">
+        <div class="brand_name">
+          <h4>Uniscrore Pro</h4>
+        </div>
+      </div>
+      <div class="nav_links">
+        <ul>
+          <a href="/login ">
+            <li class="links">Log Out</li>
+          </a>
+          <a href="/about ">
+            <li class="links">About</li>
+          </a>
+          
+        </ul>
+      </div>
+    </nav>
+  </header>
+<!-- end of navigation  -->
+
+<!-- body -->
+<div class=" main-containerr admin-wrapper">
+  <div class="containerr" id="admin">
+    <div class="control-panel">
+        <div class="md-row">
+            <div class="md-col-2 section-btn active" data-target="chartArea">
+                <p><i class="bi bi-file-earmark-bar-graph"></i> Analytics</p>
+            </div>
+            <div class="md-col-2 section-btn" data-target="resTable">
+                <p><i class="bi bi-file-earmark-spreadsheet"></i> Results</p>
+            </div>
+        </div>
+        <div class="md-row">
+            <div class="md-col-2 section-btn" data-target="stdTable" id="studentsBtn">
+                <p><i class="bi bi-people-fill"></i> Students</p>
+            </div>
+            <div class="md-col-2 section-btn" data-target="lecTable" id="lecBtn">
+                <p><i class="bi bi-people-fill"></i> Lecturers</p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+      <div id="chartArea" class="table-container showme">
+        <div class="md-row main">
+          <div class="md-col-2 students">
+              <div class="md-col-7">
+                  <div class="md-row diff">
+                      <div class="md-col-1">
+                          <p>Total Students</p>
+                      </div>
+                      <div class="md-col-1">
+                          <p id="studentCount">0</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="md-col-3">
+                  <i class="bi bi-person-fill"></i>
+              </div>
+          </div>
+          <div class="md-col-2 lecturers">
+              <div class="md-col-7">
+                  <div class="md-row diff">
+                      <div class="md-col-1">
+                          <p>Total Lecturers</p>
+                      </div>
+                      <div class="md-col-1">
+                          <p id="lecCount">0</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="md-col-3">
+                  <i class="bi bi-person-fill"></i>
+              </div>
+          </div>
+      </div>
+      <div class="admin-analytics">
+        <div class="analytics-header">
+          <button class="yearbtnn btnn" data-year="all">all</button>
+          <button class="yearbtnn btnn" data-year="2021-2022">2022</button>
+          <button class="yearbtnn btnn" data-year="2022-2023">2023</button>
+          <button class="yearbtnn btnn" data-year="2023-2024">2024</button>
+        </div>
+        <div class="analytics-body" id="chartcontainerr">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      </div>
+        
+        
+         <div class="table-container hide" id="resTable">
+         
+          <div class="md-row">
+            <h4>Average Marks Per Unit</h4>
+           </div>
+           <div class="md-row">
+            <div class="md-col-3">
+              <select id="yearSelect">
+                <!-- <option  value="all">All</option> -->
+                <option  value="2021-2022">2021-2022</option>
+                <option value="2022-2023">2022-2023</option>
+                <option selected value="2023-2024">2023-2024</option>
+              </select>
+            </div>
+            <div class="md-col-3">
+              <select id="semesterSelect">
+                <option selected value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+              </select>
+            </div>
+            <div class="md-col-3">
+              <button class="btnn genBtn"><i class="bi bi-gear"></i> Genarate</button>
+            </div>
+           </div>
+          <table class="table table-stripped table-hover" id="resultsTable">
+            
+            <thead>
+                <tr>
+                    <th>Unit Name</th>
+                    <th>2022</th>
+                    <th>2023</th>
+                    <th>2024</th>
+                </tr>
+            </thead>
+            <tbody>
+                               
+                
+            </tbody>
+          </table >
+         </div>
+         
+         <div class="table-container" id="stdTable">
+          <div class="md-row">
+            <div class="search-bar">
+              <i class="bi bi-search search-icon"></i>
+              <input type="text" class="search-input" placeholder="Search..." aria-label="Search">
+            </div>
+          </div>
+          <table class="table table-stripped table-hover">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Adm</th>
+                      <th>Course</th>
+                      <th>Year</th>
+                      <th>Semester</th>
+
+                  </tr>
+              </thead>
+              <tbody id="studentTable_body">
+                        
+              </tbody>
+          </table>
+         </div>
+         <div class="table-container hide" id="lecTable">
+          <div class="md-row">
+            <div class="search-bar">
+              <i class="bi bi-search search-icon"></i>
+              <input type="text" class="search-input" placeholder="Search..." aria-label="Search">
+          </div>
+          </div>
+          <table class="table table-stripped table-hover">
+            <thead>
+                <tr>
+                    <th>Lecturer Name</th>
+                    <th>Lecturer ID</th>
+                    <th>Lecturer Phone</th>
+                    <th>Lecturer Email</th>
+                </tr>
+            </thead>
+            <tbody id="lec_body">
+             
+                <!-- Add more rows for other lecturers -->
+            </tbody>
+        </table>
+        </div>
+    </div>
+    <div class="admin-controls mt-3">
+      <div class="md-row admin_action">
+        <div class="md-col-4"><i class="bi bi-person-fill-add"></i></div>
+        <div class="md-col-2"><p>Add User</p></div>
+        <div class="md-col-4"><i class="bi bi-plus" data-bs-toggle="modal" data-bs-target="#usersModal"></i></div>
+      </div>
+        <div class="md-row admin_action">
+          <div class="md-col-4"><i class="bi bi-person-fill-add"></i></div>
+          <div class="md-col-2"><p>Add Student</p></div>
+          <div class="md-col-4"><i class="bi bi-plus" data-bs-toggle="modal" data-bs-target="#studentModal"></i></div>
+        </div>
+        <div class="md-row admin_action">
+          <div class="md-col-4"><i class="bi bi-file-earmark-plus-fill"></i></div>
+          <div class="md-col-2"><p>Add Result</p></div>
+          <div class="md-col-4"><i class="bi bi-plus"data-bs-toggle="modal" data-bs-target="#resultModal"></i></div>
+        </div>
+        <div class="md-row admin_action">
+          <div class="md-col-4"><i class="bi bi-person-fill-add"></i></div>
+          <div class="md-col-2"><p>Add Lecturer</p></div>
+          <div class="md-col-4"><i class="bi bi-plus"data-bs-toggle="modal" data-bs-target="#addLec"></i></div>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- modals -->
+<!-- add student modal  -->
+<div class="modal fade" id="usersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-fill"></i> Add User</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" id="addUser">
+          <div class="form-group">
+            <input type="text" class="form-input" name="firstName" placeholder="First Name" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" name="lastName" placeholder="Last Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-input" name="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" name="phone" placeholder="Phone" required>
+          </div>
+          <div class="form-group">
+            <select id="userRole" class="form-input" name="role" required>
+              <option value="" selected >Select role</option>
+              <option value="admin">Admin</option>
+              <option value="lecturer">Lecturer</option>
+              <option value="student">Student</option>
+          </select>
+          </div>
+        
+        
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary addUserBtn">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- add student modal  -->
+<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-fill"></i> Add Student</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" id="addStudentForm">
+          <div class="form-group">
+            <input type="text" class="form-input" name="studentName" placeholder="Student Name" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" name="stdAdm" placeholder="Admission Number" required>
+          </div> 
+          <div class="form-group">
+            <input type="text" class="form-input" name="course" placeholder="Course" required>
+          </div>
+          <div class="form-group">
+            <input type="number" class="form-input" name="year" placeholder="Academic Year" required>
+          </div>       
+          <div class="form-group">
+            <input type="number" class="form-input" name="semester" placeholder="Semester" required>
+          </div> 
+          <div class="form-group">
+            <input type="number" class="form-input" name="phone" placeholder="phone" required>
+          </div>
+         
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary " id="addStudentBtn">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  add result modal-->
+<div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" id="addResultForm">
+          <div class="form-group">
+            <input type="text" class="form-input" name="studentAdm" placeholder="Student Adm" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" name="unitName" placeholder="Unit Name" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" name="unitCode" placeholder="Unit Code" required>
+          </div>
+          <div class="form-group">
+            <input type="number" class="form-input" name="marks" placeholder="Marks" required>
+          </div>
+          <div class="form-group">
+            <input type="number" class="form-input" name="semester" placeholder="semester" required>
+          </div>
+          <div class="form-group">
+            <select id="userRole" class="form-input" name="academicYear" required>
+              <option value="" selected >Select academic year</option>
+              <option value="2023-2024">2023/2024</option>
+              <option value="2024-2025">2024/2025</option>
+              <option value="2025-2026">2025/2026</option>
+          </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="addResultBtn">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- addlecturer -->
+<div class="modal fade" id="addLec" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" id="addLecForm">
+          <div class="form-group">
+            <input type="text" class="form-input" name="name" placeholder="Lecturer Name" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" name="phone" placeholder="Lecturer phone" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" name="email" placeholder="Lecturer email" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary add-input-btn" id="addLecBtn">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="snackbar">
+  <p class="message">
+   
+  </p>
+</div>
+  <script src="/js/index.js"></script>
+  <script>
+    $(document).ready(function(){
+     
+        const sectionBtns = document.querySelectorAll('.section-btn');
+        const tableContainers = document.querySelectorAll('.table-container');
+
+        sectionBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const target = this.getAttribute('data-target');
+                console.log(target)
+                sectionBtns.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                tableContainers.forEach(container => container.classList.remove('showme'));
+                document.getElementById(target).classList.add('showme');
+            });
+        });
+    });
+    </script>
+      
+    <!-- <script>
+      window.addEventListener('DOMContentLoaded', (event) => {
+          // Get all rows except the last one (Total row)
+          const rows = document.querySelectorAll('tbody tr:not(:last-child)');
+          let totals = {
+              '2022': 0,
+              '2023': 0,
+              '2024': 0
+          };
+
+          // Iterate over each row to calculate totals
+          rows.forEach(row => {
+              const cells = row.querySelectorAll('td');
+              cells.forEach((cell, index) => {
+                  if (index !== 0) {
+                      totals[`20${index + 21}`] += parseInt(cell.textContent);
+                  }
+              });
+          });
+
+          // Update the total row with calculated totals
+          Object.keys(totals).forEach(key => {
+              document.getElementById(`total${key}`).textContent = totals[key];
+          });
+      });
+  </script> -->
+</body>
+</html>

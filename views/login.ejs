@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/index.css">
+  <title>Login Page</title>
+  
+</head>
+<body>
+<!-- navigation -->
+  <header>
+    <nav>
+      <div class="nav_brand">
+        <div class="brand_name">
+          <h4>Uniscrore Pro</h4>
+        </div>
+      </div>
+      <div class="nav_links">
+        <ul>
+          <a href="/ ">
+            <li class="links">Home</li>
+          </a>
+          <a href="/about ">
+            <li class="links">About</li>
+          </a>
+          
+        </ul>
+      </div>
+    </nav>
+  </header>
+<!-- end of navigation  -->
+
+<!-- body -->
+<div class=" main-containerr form-containerr">
+    <div class="containerr">
+        <form id="login" action="/login" method="post">
+            <legend>Log In</legend>
+            <div class="form-group">
+                <input type="email" class="form-input" name="email" id="email" required placeholder="Email">
+            </div>
+            <div class="form-group" id="password">
+                <input type="password" class="form-input" id="passwordInput"  name="password" required placeholder="password">
+                <i class="bi bi-eye" id="showPass"></i>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="form-input btnn" required value="Log In">
+            </div>
+           <div class="form-group">
+            <a href="">Forgot Password?</a>
+           </div>
+        </form>
+    </div>
+</div>
+
+      <% if (typeof(message) !== 'undefined' && message) { %>
+        <input type="text" id="message" value='<%= JSON.stringify(message) %>' hidden>
+
+        <div class="snackbar" id="snackbar"> 
+          <p class="message"> 
+           
+
+          </p> 
+        </div> 
+        
+      <% } %>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/index.js"></script>
+ <script>
+  $(document).ready(function() {
+            $("#showPass").click(function() {
+                var passwordField = $("#passwordInput");
+                var fieldType = passwordField.attr("type");
+                passwordField.attr("type", fieldType === "password" ? "text" : "password");
+            });
+      
+        }); 
+  </script>
+</body>
+</html>
