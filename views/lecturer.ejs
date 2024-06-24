@@ -16,6 +16,12 @@
   <title>student Page</title>
 </head>
 <body>
+  <% if (typeof(message) !== 'undefined' && message) { %>
+    <input type="text" id="message" value='<%= JSON.stringify(message) %>' hidden>
+  <% } %>
+  <input type="text" id="type" value='lecturer' hidden>
+  <input type="text" id="lecId" value=<%=data.phone %> hidden>
+
 <!-- navigation -->
   <header>
     <nav>
@@ -50,8 +56,7 @@
             <div class="md-col-2 section-btn" data-target="resTable">
                 <p><i class="bi bi-file-earmark-spreadsheet"></i> My Units</p>
             </div>
-        </div>
-        
+        </div>  
     </div>
 
 
@@ -60,12 +65,12 @@
             <div class="md-row">
                 <label for="yearSelect">Select Year:</label>
                 <div class="md-col-3">
-                    <select id="yearSelect">
-                        <option value="all">All</option>
-                        <option value="2022">2022</option>
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                    </select>
+                  <select id="yearSelect">
+                      <option value="all">All</option>
+                      <option value="2021-2022">2021-2022</option>
+                      <option value="2022-2023">2022-2023</option>
+                      <option value="2023-2024">2023-2024</option>
+                  </select>
                 </div>
            </div>
            <div class="analytics-body" id="chartcontainerr">
@@ -77,88 +82,42 @@
                 <h4>Unit Results</h4>
             </div>
             <div class="md-row">
-                <div class="md-col-4">
-                  <select>
-                    <option value="1">2021/2022</option>
-                    <option value="2">2022/2023</option>
-                    <option value="3">2023/2024</option>
-                    <option value="Academic Year" selected>Academic Year</option>
-                  </select>
-                </div>
-                <div class="md-col-4">
-                  <select>
-                    <option value="1">Semester 1</option>
-                    <option value="2">Semester 2</option>
-                    
-                    <option  selected>semester</option>
-                  </select>
-                </div>
-                <div class="md-col-4">
-                  <button class="btnn genBtn"><i class="bi bi-gear"></i> Genarate</button>
-                </div>
-                <div class="md-col-4">
-                    <button class="btnn"><i class="bi bi-printer"></i> Print</button>
-                </div>
-            </div>
+              <div class="md-col-4">
+                <select name="academicYear" id="academicYear" required>
+                  <option value="2021-2022">2021/2022</option>
+                  <option value="2022-2023">2022/2023</option>
+                  <option value="2023-2024">2023/2024</option>
+                  <option value="" selected>Academic Year</option>
+                </select>
+              </div>
+              <div class="md-col-4">
+                <select name="semester" id="semester" required>
+                  <option value="1">Semester 1</option>
+                  <option value="2">Semester 2</option>
+                  <option value="3">Semester 3</option>  
+                  <option  value=""  selected>semester</option>
+                </select>
+              </div>
+              <div class="md-col-4">
+                <button class="btnn genBtn" id="getResults"><i class="bi bi-gear" ></i> Genarate</button>
+              </div>
+              <div class="md-col-4">
+                  <button class="btnn" id="downloadpdf" data-bs-toggle="modal" data-bs-target="#addunit" ><i class="bi bi-add"></i> Add unit</button>
+              </div>
+          </div>
             <div class="report-card">
-                <div class="report-card-header">
-                    <div class="md-row mod-main">
-                        <div class="md-col-3 mod al">
-                            <h6>Regestra:</h6>
-                            <div class="sign"></div>
-                        </div>
-                        <div class="md-col-3 header">
-                            <div class="logo-sec">
-                                <img src="/img/emblem.png" alt="">
-                            </div>
-                            <div class="md-row">
-                                <h4>University of Nairobi</h4>
-                            </div>
-                           <p>P.O.BOX 72-30100</p>
-                           <p>EMAIL: uniscore@gmail.com</p>
-                           <p>WEBSITE: www.uniscorepro.ac.ke</p>
-                        </div>
-                        <div class="md-col-3 mod">
-                            <h6>Stamp:</h6>
-                            <div class="sign"></div>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="report-card-body">
                     <table class="table table-strip table-hover">
                         <thead style="background-color:#4e4e4e ;">
                           <tr>
                             <th>Unit Code</th>
                             <th>Unit Name</th>
-                            <th>Grade</th>
+                            <th>lecID</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td>FEE501</td>
-                            <td>Applied electronics</td>
-                            <td>A</td>
-                          </tr>
-                          <tr>
-                            <td>FEE511</td>
-                            <td>Control systems</td>
-                            <td>B</td>
-                          </tr>
-                          <tr>
-                            <td>FEE521</td>
-                            <td>Telecommunications</td>
-                            <td>A</td>
-                          </tr>
-                          <tr>
-                            <td>FEE531</td>
-                            <td>Power systems</td>
-                            <td>C</td>
-                          </tr>
-                          <tr>
-                            <td>FEE581</td>
-                            <td>Laboratories</td>
-                            <td>B</td>
-                          </tr>
+                        <tbody id="unitsTable_body">
+                          
                         </tbody>
                       </table>
                 </div>
@@ -167,6 +126,57 @@
                
         </div>
         
+    </div>
+  </div>
+</div>
+<!-- add unit -->
+ 
+<div class="modal fade" id="addunit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-fill"></i> Add Unit</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" id="addUnitForm">
+          <div class="form-group">
+            <input type="text" class="form-input" name="unitCode" placeholder="Unit code" required>
+          </div>
+          
+          <div class="form-group">
+            <input type="text" class="form-input" name="unitName" placeholder="Unit Name" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" name="lecturerName" placeholder="lecturer " required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input" name="lecID" placeholder="lecID" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary add-input-btn" id="addUnitBtn">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-fill"></i> Edit</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="editModalBody">
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary add-input-btn" id="UpdateBtn">Save Changes</button>
+      </div>
     </div>
   </div>
 </div>

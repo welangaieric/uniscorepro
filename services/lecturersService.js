@@ -1,21 +1,18 @@
 const { createRecord, readRecord, updateRecord, deleteRecord } = require('./crud');
 const getAllLecturers = async()=>{
     const lecturers = await readRecord('lecturers','*',"");
-    console.log('lecturers:', lecturers);
     return lecturers
 }
 const getLecturersbyphone = async(phone)=>{
     const lecturers = await readRecord('lecturers','*',`phone='${phone}'`);
-    console.log('lecturers:', lecturers);
     return lecturers
 }
-const addLecturers = async (name, phone, email)=>{
-    const newLecturer = await createRecord('lecturers', ['lecturerName', 'phone', 'email'], [name, phone, email]);
-    console.log('New Lecturer:', newLecturer);
+const addLecturers = async (name, phone, email,lecID)=>{
+    const newLecturer = await createRecord('lecturers', ['lecturerName', 'phone', 'email','lecID'], [name, phone, email,lecID]);
     return newLecturer
 }
-const updateLecturers = async(name, phone, email,id)=>{
-    const updatedLecturer = await updateRecord('lecturers', ['firstName', 'lastName','phone','email','password'], `id = '${id}'`, [name, phone, email]);
+const updateLecturers = async(name, phone, email,lecID,id)=>{
+    const updatedLecturer = await updateRecord('lecturers', ['lecturerName', 'phone','email','lecID'], `id = '${id}'`, [name, phone, email,lecID]);
     console.log('Updated Lecturer:', updatedLecturer);
     return updatedLecturer
 }

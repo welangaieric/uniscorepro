@@ -36,8 +36,6 @@ const unitsModule = require('./controllers/units')
 const studentsModule = require('./controllers/students')
 
 
-
-
 // configure routes for each custom module imported
 app.use('/',pagesModule)
 app.use('/login',loginModule)

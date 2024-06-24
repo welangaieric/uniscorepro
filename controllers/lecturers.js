@@ -42,8 +42,8 @@ router.delete('/:id',async(req,res)=>{
 // update or edit Lecturer record
 router.put('/',async(req,res)=>{
     try {
-        const {name, phone, email,id}=req.body
-        const response  = await updateLecturers(name, phone, email,id)
+        const {name, phone, email, lecID,id}=req.body
+        const response  = await updateLecturers(name, phone, email, lecID,id)
         res.status(200).json(response)
     } catch (error) {
         console.log(error)
@@ -55,8 +55,8 @@ router.put('/',async(req,res)=>{
 // create new Lecturer
 router.post('/',async(req,res)=>{
     try {
-        const {name, phone, email}=req.body
-        const response  = await addLecturers(name, phone, email)
+        const {name, phone, email,lecID}=req.body
+        const response  = await addLecturers(name, phone, email,lecID)
         res.status(200).json(response)
     } catch (error) {
         console.log(error)

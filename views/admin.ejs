@@ -170,6 +170,7 @@
                       <th>Course</th>
                       <th>Year</th>
                       <th>Semester</th>
+                      <th>Actions</th>
 
                   </tr>
               </thead>
@@ -192,6 +193,7 @@
                     <th>Lecturer ID</th>
                     <th>Lecturer Phone</th>
                     <th>Lecturer Email</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="lec_body">
@@ -310,7 +312,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-folder-fill"></i> Add Result</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -352,7 +354,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-fill"></i> Add Lecturer</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -366,11 +368,32 @@
           <div class="form-group">
             <input type="text" class="form-input" name="email" placeholder="Lecturer email" required>
           </div>
+          <div class="form-group">
+            <input type="text" class="form-input" name="lecID" placeholder="lecID" required>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary add-input-btn" id="addLecBtn">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-fill"></i> Edit</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="editModalBody">
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary add-input-btn" id="UpdateBtn">Save Changes</button>
       </div>
     </div>
   </div>

@@ -4,7 +4,6 @@ const db = require('../db');
 const createRecord = async (table, columns, values) => {
   try {
     const query = `INSERT INTO ${table} (${columns}) VALUES (?)`;
-    console.log(query)
     const [res] = await db.query(query, [values]);
     return res;
   } catch (err) {
@@ -23,6 +22,7 @@ const readRecord = async (table, columns, condition , values ) => {
       query = `SELECT ${columns} FROM ${table} ;`;
 
     }
+    console.log(query)
     const [res] = await db.query(query, values);
     return res;
   } catch (err) {

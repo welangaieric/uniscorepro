@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2024 at 07:51 PM
+-- Generation Time: Jun 20, 2024 at 07:49 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -40,7 +40,7 @@ CREATE TABLE `lecturers` (
 --
 
 INSERT INTO `lecturers` (`id`, `lecturerName`, `phone`, `email`, `lecID`) VALUES
-(1, 'welangai eric mmasi', '0110517055', 'welangaieric@gmail.c', '');
+(1, 'welangai eric mmasi', '0729698881', 'welangaieric@gmail.com', 'lec502');
 
 -- --------------------------------------------------------
 
@@ -165,7 +165,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `studentName`, `course`, `year`, `semester`, `stdAdm`, `phone`) VALUES
-(1, 'welangai eric', 'software', '2001', 1, 'bse230', '0110517055'),
+(1, 'Welangai Eric', 'software', '2021', 1, 'bse230', '0110517055'),
 (5, 'Tom', 'software', '2003', 2, 'bse204', '0110517058');
 
 -- --------------------------------------------------------
@@ -181,6 +181,17 @@ CREATE TABLE `units` (
   `unitCode` varchar(7) NOT NULL,
   `lecID` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `units`
+--
+
+INSERT INTO `units` (`id`, `lecturerName`, `unitName`, `unitCode`, `lecID`) VALUES
+(4, 'welangai eric mmasi', 'Circuit Theory', 'EE101', 'lec502'),
+(5, 'welangai eric mmasi', 'Electromagnetic', 'EE102', 'lec502'),
+(6, 'welangai eric mmasi', 'Digital Electro', 'EE103', 'lec502'),
+(7, 'welangai eric mmasi', 'Power Systems', 'EE104', 'lec502'),
+(8, 'welangai eric mmasi', 'Control Systems', 'EE105', 'lec502');
 
 -- --------------------------------------------------------
 
@@ -207,7 +218,8 @@ INSERT INTO `users` (`id`, `firstName`, `lastName`, `phone`, `email`, `password`
 (39, 'Welangai', 'Eric', '0110517057', 'ericwelangai@gmail.com', '$2b$10$0M.8h29W18J/cWWPFJX65eAmXoKGGs.lLFgvrwYyGDxNzZFXF/OI6', '2024-06-16 23:59:04', 'admin'),
 (40, 'Eric', 'Welangai', '0110517055', 'welangaieric@gmail.com', '$2b$10$5FHKuRRITlmRiuiDQDFLpez6SBScg4K5xxD48YYpwPmVKMM/cv5FC', '2024-06-17 00:40:48', 'student'),
 (41, 'Eric', 'Welangai', '0729698881', 'keinkalto2@gmail.com', '$2b$10$ZLG/31k6.DPBT83Iql4Ye.kAeiGNdIEDutNzLDs4aT7M3yE6xp.MS', '2024-06-17 08:36:42', 'lecturer'),
-(42, 'Tom', 'Henricks', '0110517058', 'welangai@konnektsmartlife.com', '$2b$10$u2z4V7sfr.g.N6B.fTVMMOk14tLXQwNdOeWBQnxdx8jtSLdda5COu', '2024-06-18 11:15:57', 'student');
+(42, 'Tom', 'Henricks', '0110517058', 'welangai@konnektsmartlife.com', '$2b$10$u2z4V7sfr.g.N6B.fTVMMOk14tLXQwNdOeWBQnxdx8jtSLdda5COu', '2024-06-18 11:15:57', 'student'),
+(43, 'John', 'Doe', '0799333639', 'uniscorepro@gmail.com', '$2b$10$zmdnOlTTu37mPaNIJ9PHi.MkI5i/KTl1qt9rFOq9ThTtR8xoCaf/e', '2024-06-19 08:22:46', 'student');
 
 --
 -- Indexes for dumped tables
@@ -274,19 +286,19 @@ ALTER TABLE `result`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Constraints for dumped tables

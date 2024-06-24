@@ -41,8 +41,8 @@ router.delete('/:id',async(req,res)=>{
 // update or edit Lecturer record
 router.put('/',async(req,res)=>{
     try {
-        const {studentName,course, year,semester,stdAdm,id}=req.body
-        const response  = await updatestudent(studentName,course, year,semester,stdAdm,id)
+        const {studentName,course, year,semester,stdAdm,phone,id}=req.body
+        const response  = await updatestudent(studentName,course, year,semester,stdAdm,phone,id)
         res.status(200).json(response)
     } catch (error) {
         console.log(error)
@@ -54,8 +54,8 @@ router.put('/',async(req,res)=>{
 // create new Lecturer
 router.post('/',async(req,res)=>{
     try {
-        const {studentName,course,year,semester,stdAdm}=req.body
-        const response  = await addstudent(studentName,course,year,semester,stdAdm)
+        const {studentName,course,year,semester,stdAdm,phone}=req.body
+        const response  = await addstudent(studentName,course,year,semester,stdAdm,phone)
         res.status(200).json(response)
     } catch (error) {
         console.log(error)

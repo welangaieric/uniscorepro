@@ -7,7 +7,7 @@ const getAllunits = async()=>{
 }
 
 const getunitByCode= async(code)=>{
-    const units = await readRecord('units','*',`unitAdm like'%${code}%'`);
+    const units = await readRecord('units','*',`lecID = '${code}'`);
     console.log('units:', units);
     return units
 }

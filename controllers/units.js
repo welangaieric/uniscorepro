@@ -18,7 +18,7 @@ router.get('/:code',async(req,res)=>{
     try {
         const code = req.params.code
         const records = await getunitByCode(code)
-        res.status(200).json(records[0])
+        res.status(200).json(records)
     } catch (error) {
         console.log(error)
         res.status(500).json({
@@ -55,8 +55,8 @@ router.put('/',async(req,res)=>{
 // create new unit
 router.post('/',async(req,res)=>{
     try {
-        const {name, phone, email}=req.body
-        const response  = await addunit(name, phone, email)
+        const {lecturerName,unitName,unitCode,lecID}=req.body
+        const response  = await addunit(lecturerName,unitName,unitCode,lecID)
         res.status(200).json(response)
     } catch (error) {
         console.log(error)
