@@ -1,6 +1,6 @@
 const mysql = require('mysql2/promise')
 const db_connection = mysql.createPool({
-    user:"root",
+    user:"",
     password:"",
     database:"uniscore",
     host:"localhost",

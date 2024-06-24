@@ -1,5 +1,5 @@
 (() => {
-  const serverUrl = "http://127.0.0.1:3000";
+  const serverUrl = "http://51.20.89.104:3000";
 
   // Function to handle all AJAX calls to either fetch or send data to the server
   const Resources = (form, url, type) => {
